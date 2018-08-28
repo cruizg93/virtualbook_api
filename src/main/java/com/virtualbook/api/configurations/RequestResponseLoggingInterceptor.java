@@ -16,7 +16,6 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 	
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-
 		logRequest(request,body);
 		ClientHttpResponse response = execution.execute(request, body);
 		logResponse(response);
@@ -25,7 +24,6 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 
 	
 	private void logRequest(HttpRequest request, byte[] body) throws IOException{
-		if(log.isDebugEnabled()) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("=======================REQUEST BEGIN================================");
 			sb.append("\n URI           :").append(request.getURI());
@@ -33,12 +31,10 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 			sb.append("\n Headers       :").append(request.getHeaders());
 			sb.append("\n Request Body  :").append(new String(body, "UTF-8"));
 			sb.append("=======================REQUEST END==================================");
-			log.debug(sb.toString());
-		}
+			log.info(sb.toString());
 	}
 	
 	private void logResponse(ClientHttpResponse response) throws IOException{
-		if(log.isDebugEnabled()) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("=======================RESPONSE BEGIN================================");
 			sb.append("\n Status Code   :").append(response.getStatusCode());
@@ -46,7 +42,6 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 			sb.append("\n Headers       :").append(response.getHeaders());
 			sb.append("\n Response Body :").append(StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
 			sb.append("=======================RESPONSE END==================================");
-			log.debug(sb.toString());
-		}
+			log.info(sb.toString());
 	}
 }
