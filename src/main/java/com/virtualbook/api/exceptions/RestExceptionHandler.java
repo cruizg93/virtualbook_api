@@ -3,6 +3,7 @@ package com.virtualbook.api.exceptions;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -140,11 +141,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request){
 		ApiError apiError = new ApiError(BAD_REQUEST);
-		apiError.setMessage(String.format("The parameter '%s' of value '%s' could not be converted to type '%s'",ex.getName(),ex.getValue()));
+		apiError.setMessage(String.format("The parameter '%s' with value '%s' could not be converted to type.",ex.getName(),ex.getValue()));
 		apiError.setDebugMessage(ex.getMessage());
 		return buildResponseEntity(apiError);
 	}
-	
 	
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError){
 		return new ResponseEntity<>(apiError, apiError.getStatus());
