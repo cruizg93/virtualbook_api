@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.virtualbook.api.models.Client;
 import com.virtualbook.api.repositories.ClientsRepository;
-import com.virtualbook.api.utils.Globals;
+import com.virtualbook.api.utils.AppConstants;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ClientServiceTest {
@@ -46,9 +46,9 @@ public class ClientServiceTest {
 	@Test
 	public void testGetAllClients() {
 		List<Client> clientsList = new ArrayList<Client>();
-		clientsList.add(new Client(1L,"Client1","client1@test.com","1234567890","Address1","1111",Globals.ACTIVE));
-		clientsList.add(new Client(2L,"Client2","client2@test.com","1234567890","Address2","2222",Globals.ACTIVE));
-		clientsList.add(new Client(3L,"Client3","client3@test.com","1234567890","Address3","3333",Globals.ACTIVE));
+		clientsList.add(new Client(1L,"Client1","client1@test.com","1234567890","Address1","1111",AppConstants.ACTIVE));
+		clientsList.add(new Client(2L,"Client2","client2@test.com","1234567890","Address2","2222",AppConstants.ACTIVE));
+		clientsList.add(new Client(3L,"Client3","client3@test.com","1234567890","Address3","3333",AppConstants.ACTIVE));
 		when(clientsRepository.findAll()).thenReturn(clientsList);
 		
 		List<Client> result = clientsService.getAllClients();
@@ -57,7 +57,7 @@ public class ClientServiceTest {
 	
 	@Test
 	public void testGetClientById() {
-		Optional<Client> client = Optional.of(new Client(clientId,"Client1","client1@test.com","1234567890","Address1","1111",Globals.ACTIVE));
+		Optional<Client> client = Optional.of(new Client(clientId,"Client1","client1@test.com","1234567890","Address1","1111",AppConstants.ACTIVE));
 		when(clientsRepository.findById(clientId)).thenReturn(client);
 		
 		Client result = clientsService.getClientById(clientId ).get();
@@ -79,7 +79,7 @@ public class ClientServiceTest {
 	
 	@Test
 	public void testSaveClient() {
-		Optional<Client> client = Optional.of(new Client(clientId ,"Client1","client1@test.com","1234567890","Address1","1111",Globals.ACTIVE));
+		Optional<Client> client = Optional.of(new Client(clientId ,"Client1","client1@test.com","1234567890","Address1","1111",AppConstants.ACTIVE));
 		when(clientsRepository.save(client.get())).thenReturn(client.get());
 		
 		Client result = clientsService.saveClient(client.get());
@@ -96,7 +96,7 @@ public class ClientServiceTest {
 	
 	@Test
 	public void testUpdateClient() {
-		Optional<Client> client = Optional.of(new Client(clientId,"Client1","client1@test.com","1234567890","Address1","1111",Globals.ACTIVE));
+		Optional<Client> client = Optional.of(new Client(clientId,"Client1","client1@test.com","1234567890","Address1","1111",AppConstants.ACTIVE));
 		when(clientsRepository.findById(clientId)).thenReturn(client);
 		Client result = clientsService.getClientById(clientId).get();
 		result.setName("updated");
@@ -110,7 +110,7 @@ public class ClientServiceTest {
 	
 	@Test
 	public void testDeleteClient() {
-		Optional<Client> client = Optional.of(new Client(clientId,"Client1","client1@test.com","1234567890","Address1","1111",Globals.ACTIVE));
+		Optional<Client> client = Optional.of(new Client(clientId,"Client1","client1@test.com","1234567890","Address1","1111",AppConstants.ACTIVE));
 		when(clientsRepository.findById(clientId)).thenReturn(client);
 		Client result = clientsService.getClientById(clientId).get();
 		clientsService.deleteClient(result);

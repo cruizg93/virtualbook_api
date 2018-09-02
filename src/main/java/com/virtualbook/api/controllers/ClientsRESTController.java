@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.virtualbook.api.models.Client;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 @RestController
+@RequestMapping("/api")
 public class ClientsRESTController {
 
 	@Autowired

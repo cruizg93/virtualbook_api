@@ -24,7 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.virtualbook.api.VirtualbookApiApplication;
-import com.virtualbook.api.utils.Globals;
+import com.virtualbook.api.utils.AppConstants;
+import com.virtualbook.api.utils.AppConstants;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = VirtualbookApiApplication.class)
@@ -84,33 +85,33 @@ public class ClientsRESTControllerTest {
 	public void saveClient() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders.post("/clients")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"id\":\"1\",\"name\":\"client1\",\"status\":\""+Globals.ACTIVE+"\"}")
+				.content("{\"id\":\"1\",\"name\":\"client1\",\"status\":\""+AppConstants.ACTIVE+"\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 					.andExpect(jsonPath("$.id").exists())
 					.andExpect(jsonPath("$.name").exists())
 					.andExpect(jsonPath("$.status").exists())
 					.andExpect(jsonPath("$.name").value("client1"))
-					.andExpect(jsonPath("$.status").value(Globals.ACTIVE));
+					.andExpect(jsonPath("$.status").value(AppConstants.ACTIVE));
 	}
 	
 	@Test
 	public void saveClientNoId() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders.post("/clients")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"name\":\"clientNoId\",\"status\":\""+Globals.ACTIVE+"\"}")
+				.content("{\"name\":\"clientNoId\",\"status\":\""+AppConstants.ACTIVE+"\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 					.andExpect(jsonPath("$.id").exists())
 					.andExpect(jsonPath("$.name").exists())
 					.andExpect(jsonPath("$.status").exists())
 					.andExpect(jsonPath("$.name").value("clientNoId"))
-					.andExpect(jsonPath("$.status").value(Globals.ACTIVE));
+					.andExpect(jsonPath("$.status").value(AppConstants.ACTIVE));
 	}
 	
 	@Test
 	public void updateClient() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders.patch("/clients")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"id\":\"32\",\"name\":\"client1\",\"status\":\""+Globals.ACTIVE+"\"}")
+				.content("{\"id\":\"32\",\"name\":\"client1\",\"status\":\""+AppConstants.ACTIVE+"\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 	}
@@ -119,7 +120,7 @@ public class ClientsRESTControllerTest {
 	public void updateClientNotFoundException() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders.patch("/clients")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"id\":\"1\",\"name\":\"client1\",\"status\":\""+Globals.ACTIVE+"\"}")
+				.content("{\"id\":\"1\",\"name\":\"client1\",\"status\":\""+AppConstants.ACTIVE+"\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isNotFound());
 	}
